@@ -83,6 +83,7 @@ string AddressBook::Telephone::getTelePhone(string phone = "")
     return phone;
 }
 
+//function to display menu
 void displayMenu()
 {
     cout << "1) Add Contact.\n";
@@ -100,94 +101,99 @@ int main()
     
     //empty map container
     multimap<string,string> contact;
+    
     displayMenu();
     cin >> option;
 
-    switch(option)
+    while(option != 5)
     {
-        case 1:
-            cout << "First name: "; cin >> first;
-            cout << "Last name: "; cin >> last;
-            cout << "telephone: "; cin >> telephone;
-            cout << "Street name: "; cin >> street;
-            cout << "City: "; cin >> city;
-            cout << "District: "; cin >> district;
-            cout << "Postcode: "; cin >> postcode;
-            cout << "E-mail address: "; cin >> e_mail;
-            
-            //person object
-            AddressBook::Person Person(first,last);
-            //Telephone object
-            AddressBook::Telephone Telephone(telephone);
-            //Address object
-            AddressBook::Address Address(street,city,district,postcode);
-            //E-mail object
-            AddressBook::emailAddress emailAddress(e_mail);
-            
-            //Map that stores format of inputs
-            contact.insert(pair<string,string> (last,Person.getName(first,last)));
-            contact.insert(pair<string,string> ("Telephone",Telephone.getTelePhone(telephone)));
-            contact.insert(pair<string,string> ("Address",Address.getAddress(street,city,district,postcode)));
-            contact.insert(pair<string,string> ("Email",emailAddress.getEmailAddress(e_mail)));
-        break;
-        case 2:
-          cout << "Enter the last name of the contact you want to update: ";
-          string updateContact,findContact;
-          cin >> findContact;
-          multimap<string,string>::iterator itr;
-
-          auto it = contact.equal_range(findContact);
-
-        if(it.first == it.second)
+        switch(option)
         {
-            cout << "Contact name not found " << '\n';
-        }else
-        {
-            cout << "Enter you would like to add: ";
-            cin >> updateContact;
-           for(auto itr = it.first;itr != it.second;itr++)
-          {
-            itr->second = updateContact;
-          }
-           
-           //Prints updated list
-           for(const auto& [key,value] : contact)
-           {
-                cout << key << ": " << value << '\n';
-           }
-        }
-        break;
-        case 3:
-            cout << "Enter the last name of contact you want to remove: ";
-            string removeContact;
-            cin >> removeContact;
-
+            case 1:
+                cout << "First name: "; cin >> first;
+                cout << "Last name: "; cin >> last;
+                cout << "telephone: "; cin >> telephone;
+                cout << "Street name: "; cin >> street;
+                cout << "City: "; cin >> city;
+                cout << "District: "; cin >> district;
+                cout << "Postcode: "; cin >> postcode;
+                cout << "E-mail address: "; cin >> e_mail;
+                
+                //person object
+                AddressBook::Person Person(first,last);
+                //Telephone object
+                AddressBook::Telephone Telephone(telephone);
+                //Address object
+                AddressBook::Address Address(street,city,district,postcode);
+                //E-mail object
+                AddressBook::emailAddress emailAddress(e_mail);
+                
+                //Map that stores format of inputs
+                contact.insert(pair<string,string> (last,Person.getName(first,last)));
+                contact.insert(pair<string,string> ("Telephone",Telephone.getTelePhone(telephone)));
+                contact.insert(pair<string,string> ("Address",Address.getAddress(street,city,district,postcode)));
+                contact.insert(pair<string,string> ("Email",emailAddress.getEmailAddress(e_mail)));
+            break;
+            case 2:
+            cout << "Enter the last name of the contact you want to update: ";
+            string updateContact,findContact;
+            cin >> findContact;
             multimap<string,string>::iterator itr;
 
-            auto it = contact.equal_range(removeContact);
+            auto it = contact.equal_range(findContact);
 
             if(it.first == it.second)
             {
-                cout << "Contact name not found" << '\n';
+                cout << "Contact name not found " << '\n';
             }else
             {
-                contact.erase(it.first,it.second);
-
-                for(const auto& [key,value] : contact)
-                {
-                    cout << key << ": " << value << '\n';
-                }
+                cout << "Enter you would like to add: ";
+                cin >> updateContact;
+            for(auto itr = it.first;itr != it.second;itr++)
+            {
+                itr->second = updateContact;
             }
-        break;
-        case 4:
-            //Prints list of contacts
-           for(const auto& [key,value] : contact)
-           {
-                cout << key << ": " << value << '\n';
-           }
-        break;
-        case 5:
-        //no code needed
-        break;
+            
+            //Prints updated list
+            for(const auto& [key,value] : contact)
+            {
+                    cout << key << ": " << value << '\n';
+            }
+            }
+            break;
+            case 3:
+                cout << "Enter the last name of contact you want to remove: ";
+                string removeContact;
+                cin >> removeContact;
+
+                multimap<string,string>::iterator itr;
+
+                auto it = contact.equal_range(removeContact);
+
+                if(it.first == it.second)
+                {
+                    cout << "Contact name not found" << '\n';
+                }else
+                {
+                    contact.erase(it.first,it.second);
+
+                    for(const auto& [key,value] : contact)
+                    {
+                        cout << key << ": " << value << '\n';
+                    }
+                }
+            break;
+            case 4:
+                //Prints list of contacts
+            for(const auto& [key,value] : contact)
+            {
+                    cout << key << ": " << value << '\n';
+            }
+            break;
+            case 5:
+            //no code needed
+            break;
+        }
     }
+    return 0;
 }

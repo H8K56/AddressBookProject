@@ -89,7 +89,7 @@ void displayMenu()
     cout << "2) Update existing contact.\n";
     cout << "3) remove contact\n";
     cout << "4) Display full contact list\n";
-    cout << "5) Search Contact name.";
+    cout << "5) Quit";
 }
 
 
@@ -178,6 +178,16 @@ int main()
                     cout << key << ": " << value << '\n';
                 }
             }
+        break;
+        case 4:
+            //Prints list of contacts
+           for(const auto& [key,value] : contact)
+           {
+                cout << key << ": " << value << '\n';
+           }
+        break;
+        case 5:
+        //no code needed
         break;
     }
 }

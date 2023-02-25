@@ -64,21 +64,21 @@ class AddressBook
     };
 };
 //Functions that set the format of the address book
-string AddressBook::Person::getName(string first,string last)
+string AddressBook::Person::getName(string first = "",string last = "")
 {
     string fullName = first + " " + last;
     return fullName;
 }
-string AddressBook::Address::getAddress(string street,string city,string district,string postCode)
+string AddressBook::Address::getAddress(string street = "",string city = "",string district = "",string postCode = "")
 {
     string addressOfPerson = street + "," + city + "," + district + "," + postCode;
     return addressOfPerson;
 }
-string AddressBook::emailAddress::getEmailAddress(string e_mail)
+string AddressBook::emailAddress::getEmailAddress(string e_mail = "")
 {
     return e_mail; 
 }
-string AddressBook::Telephone::getTelePhone(string phone)
+string AddressBook::Telephone::getTelePhone(string phone = "")
 {
     return phone;
 }
@@ -125,9 +125,35 @@ int main()
             AddressBook::emailAddress emailAddress(e_mail);
             
             //Map that stores format of inputs
-            contact.insert(pair<string,string> ("Name",Person.getName(first,last)));
+            contact.insert(pair<string,string> (last,Person.getName(first,last)));
             contact.insert(pair<string,string> ("Telephone",Telephone.getTelePhone(telephone)));
             contact.insert(pair<string,string> ("Address",Address.getAddress(street,city,district,postcode)));
             contact.insert(pair<string,string> ("Email",emailAddress.getEmailAddress(e_mail)));
+        break;
+        case 2:
+          cout << "Enter the last name of the contact you want to update: ";
+          string updateContact;
+          cin >> updateContact;
+          multimap<string,string>::iterator itr;
+
+          auto it = contact.equal_range(updateContact);
+
+        if(it.first == it.second)
+        {
+            cout << "Contact name not found " << '\n';
+        }else
+        {
+           for(auto itr = it.first;itr != it.second;itr++)
+          {
+            itr->second = updateContact;
+          }
+           
+           //Prints updated list
+           for(const auto& [key,value] : contact)
+           {
+                cout << key << ": " << value << '\n';
+           }
+        }
+        break;  
     }
 }

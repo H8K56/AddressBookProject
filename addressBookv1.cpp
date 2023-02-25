@@ -132,17 +132,19 @@ int main()
         break;
         case 2:
           cout << "Enter the last name of the contact you want to update: ";
-          string updateContact;
-          cin >> updateContact;
+          string updateContact,findContact;
+          cin >> findContact;
           multimap<string,string>::iterator itr;
 
-          auto it = contact.equal_range(updateContact);
+          auto it = contact.equal_range(findContact);
 
         if(it.first == it.second)
         {
             cout << "Contact name not found " << '\n';
         }else
         {
+            cout << "Enter you would like to add: ";
+            cin >> updateContact;
            for(auto itr = it.first;itr != it.second;itr++)
           {
             itr->second = updateContact;
@@ -154,6 +156,28 @@ int main()
                 cout << key << ": " << value << '\n';
            }
         }
-        break;  
+        break;
+        case 3:
+            cout << "Enter the last name of contact you want to remove: ";
+            string removeContact;
+            cin >> removeContact;
+
+            multimap<string,string>::iterator itr;
+
+            auto it = contact.equal_range(removeContact);
+
+            if(it.first == it.second)
+            {
+                cout << "Contact name not found" << '\n';
+            }else
+            {
+                contact.erase(it.first,it.second);
+
+                for(const auto& [key,value] : contact)
+                {
+                    cout << key << ": " << value << '\n';
+                }
+            }
+        break;
     }
 }

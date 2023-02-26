@@ -16,11 +16,6 @@ class AddressBook
             string lastName;
         
         public:
-        Person(string first,string last)
-        {
-            this->firstName = first;
-            this->lastName = last;
-        }
         string getName(string,string);
     };
     class Address
@@ -29,13 +24,6 @@ class AddressBook
         string streetName,cityName,district,postCode;
         
         public:
-        Address(string street,string city,string district,string post_code)
-        {
-            this->streetName = street;
-            this->cityName = city;
-            this->district = district;
-            this->postCode = post_code;
-        }
         string getAddress(string,string,string,string);
     };
     class emailAddress
@@ -44,10 +32,6 @@ class AddressBook
         string email;
 
         public:
-        emailAddress(string e_mail)
-        {
-            this->email = e_mail;
-        }
         string getEmailAddress(string);
     };
     class Telephone
@@ -56,10 +40,6 @@ class AddressBook
         string phoneNumber;
 
         public:
-        Telephone(string phone_number)
-        {
-            this->phoneNumber = phone_number;
-        }
         string getTelePhone(string);
     };
 };
@@ -96,7 +76,12 @@ void displayMenu()
 
 int main()
 {
+    // //open file for writing
+    // ofstream open("contact_list.txt");
+    // open << "******Address Book******" << '\n';
     string first,last,telephone,street,city,district,postcode,e_mail;
+    string updateContact,findContact;
+    string removeContact;
     int option;
     
     //empty map container
@@ -104,6 +89,15 @@ int main()
     
     displayMenu();
     cin >> option;
+
+    //person object
+    AddressBook::Person Person;
+    //Telephone object
+    AddressBook::Telephone Telephone;
+    //Address object
+    AddressBook::Address Address;
+    //E-mail object
+    AddressBook::emailAddress emailAddress;
 
     while(option != 5)
     {
@@ -119,15 +113,6 @@ int main()
                 cout << "Postcode: "; cin >> postcode;
                 cout << "E-mail address: "; cin >> e_mail;
                 
-                //person object
-                AddressBook::Person Person(first,last);
-                //Telephone object
-                AddressBook::Telephone Telephone(telephone);
-                //Address object
-                AddressBook::Address Address(street,city,district,postcode);
-                //E-mail object
-                AddressBook::emailAddress emailAddress(e_mail);
-                
                 //Map that stores format of inputs
                 contact.insert(pair<string,string> (last,Person.getName(first,last)));
                 contact.insert(pair<string,string> ("Telephone",Telephone.getTelePhone(telephone)));
@@ -135,53 +120,53 @@ int main()
                 contact.insert(pair<string,string> ("Email",emailAddress.getEmailAddress(e_mail)));
             break;
             case 2:
-            cout << "Enter the last name of the contact you want to update: ";
-            string updateContact,findContact;
-            cin >> findContact;
-            multimap<string,string>::iterator itr;
-
-            auto it = contact.equal_range(findContact);
-
-            if(it.first == it.second)
-            {
-                cout << "Contact name not found " << '\n';
-            }else
-            {
-                cout << "Enter you would like to add: ";
-                cin >> updateContact;
-            for(auto itr = it.first;itr != it.second;itr++)
-            {
-                itr->second = updateContact;
-            }
-            
-            //Prints updated list
-            for(const auto& [key,value] : contact)
-            {
-                    cout << key << ": " << value << '\n';
-            }
-            }
-            break;
-            case 3:
-                cout << "Enter the last name of contact you want to remove: ";
-                string removeContact;
-                cin >> removeContact;
-
+                cout << "Enter the last name of the contact you want to update: ";
+                cin >> findContact;
+                
                 multimap<string,string>::iterator itr;
 
-                auto it = contact.equal_range(removeContact);
+                auto it = contact.equal_range(findContact);
 
                 if(it.first == it.second)
                 {
-                    cout << "Contact name not found" << '\n';
+                    cout << "Contact name not found " << '\n';
                 }else
                 {
-                    contact.erase(it.first,it.second);
-
-                    for(const auto& [key,value] : contact)
-                    {
-                        cout << key << ": " << value << '\n';
-                    }
+                    cout << "Enter you would like to add: ";
+                    cin >> updateContact;
+                for(auto itr = it.first;itr != it.second;itr++)
+                {
+                    itr->second = updateContact;
                 }
+                
+                //Prints updated list
+                for(const auto& [key,value] : contact)
+                {
+                        cout << key << ": " << value << '\n';
+                }
+                }
+                break;
+            case 3:
+                    cout << "Enter the last name of contact you want to remove: ";
+                   
+                    cin >> removeContact;
+
+                    multimap<string,string>::iterator itr1;
+
+                    auto it = contact.equal_range(removeContact);
+
+                    if(it.first == it.second)
+                    {
+                        cout << "Contact name not found" << '\n';
+                    }else
+                    {
+                        contact.erase(it.first,it.second);
+
+                        for(const auto& [key,value] : contact)
+                        {
+                            cout << key << ": " << value << '\n';
+                        }
+                    }
             break;
             case 4:
                 //Prints list of contacts

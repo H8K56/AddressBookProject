@@ -14,7 +14,6 @@ class AddressBook
         private:
             string firstName;
             string lastName;
-        
         public:
         string getName(string,string);
     };

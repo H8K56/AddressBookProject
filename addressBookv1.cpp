@@ -2,7 +2,6 @@
 #include <map>
 #include <iterator>
 #include <string>
-#include <fstream>
 
 using namespace std;
 //Main class
@@ -75,9 +74,6 @@ void displayMenu()
 
 int main()
 {
-    // //open file for writing
-    // ofstream open("contact_list.txt");
-    // open << "******Address Book******" << '\n';
     string first,last,telephone,street,city,district,postcode,e_mail;
     string updateContact,findContact;
     string removeContact;
@@ -112,7 +108,7 @@ int main()
             cout << "E-mail address: "; cin >> e_mail;
             
             //Map that stores format of inputs
-            contact.insert(pair<string,string> ("Name",Person.getName(first,last)));
+            contact.insert(pair<string,string> (last,Person.getName(first,last)));
             contact.insert(pair<string,string> ("Telephone",Telephone.getTelePhone(telephone)));
             contact.insert(pair<string,string> ("Address",Address.getAddress(street,city,district,postcode)));
             contact.insert(pair<string,string> ("Email",emailAddress.getEmailAddress(e_mail)));
@@ -130,7 +126,7 @@ int main()
                 cout << "Contact name not found " << '\n';
             }else
             {
-                cout << "Enter you would like to add: ";
+                cout << "Enter name you would like to add: ";
                 cin >> updateContact;
                 for(auto itr = it.first;itr != it.second;itr++)
                 {
@@ -173,5 +169,7 @@ int main()
             }
         }
     }while(option != 5);
+
+    cout << "You are blessed";
     return 0;
 }

@@ -1,65 +1,22 @@
+/**
+ * @file addressBookv1.cpp
+ * @author your name (you@domain.com)
+ * @brief 
+ * @version 0.1
+ * @date 2023-03-03
+ * 
+ * @copyright Copyright (c) 2023
+ * 
+ */
 #include <iostream>
-#include <map>
-#include <iterator>
 #include <string>
 
 using namespace std;
-//Main class
-class AddressBook
-{
-    public:
-    class Person
-    {
-        private:
-            string firstName;
-            string lastName;
-        public:
-        string getName(string,string);
-    };
-    class Address
-    {
-        private:
-        string streetName,cityName,district,postCode;
-        
-        public:
-        string getAddress(string,string,string,string);
-    };
-    class emailAddress
-    {
-        private:
-        string email;
 
-        public:
-        string getEmailAddress(string);
-    };
-    class Telephone
-    {
-        private:
-        string phoneNumber;
-
-        public:
-        string getTelePhone(string);
-    };
-};
-//Functions that set the format of the address book
-string AddressBook::Person::getName(string first = "",string last = "")
+struct addressBookv1
 {
-    string fullName = first + " " + last;
-    return fullName;
-}
-string AddressBook::Address::getAddress(string street = "",string city = "",string district = "",string postCode = "")
-{
-    string addressOfPerson = street + "," + city + "," + district + "," + postCode;
-    return addressOfPerson;
-}
-string AddressBook::emailAddress::getEmailAddress(string e_mail = "")
-{
-    return e_mail; 
-}
-string AddressBook::Telephone::getTelePhone(string phone = "")
-{
-    return phone;
-}
+    string contact;
+}Contact1,Contact2,Contact3,Contact4,Contact5;
 
 //function to display menu
 void displayMenu()
@@ -75,97 +32,105 @@ void displayMenu()
 int main()
 {
     string first,last,telephone,street,city,district,postcode,e_mail;
-    string updateContact,findContact;
-    string removeContact;
-    int option;
-    
-    //empty map container
-    multimap<string,string> contact;
-
-    //person object
-    AddressBook::Person Person;
-    //Telephone object
-    AddressBook::Telephone Telephone;
-    //Address object
-    AddressBook::Address Address;
-    //E-mail object
-    AddressBook::emailAddress emailAddress;
-    
+    string Combined_Contact = "Name: "+ first + "," + last + ",Tele: " + telephone + ",Address: " + street + "," + city + "," + district + "," + postcode + ",email: " + e_mail;
+    int updateContact,findContact,removeContact;
+    int option,userInput,count = 0;
+    string contact_arr[5];
     do
     {
         displayMenu();
         cin >> option;
         
-        if(option == 1)
+        switch(option)
         {
-            cout << "First name: "; cin >> first;
-            cout << "Last name: "; cin >> last;
-            cout << "telephone: "; cin >> telephone;
-            cout << "Street name: "; cin >> street;
-            cout << "City: "; cin >> city;
-            cout << "District: "; cin >> district;
-            cout << "Postcode: "; cin >> postcode;
-            cout << "E-mail address: "; cin >> e_mail;
-            
-            //Map that stores format of inputs
-            contact.insert(pair<string,string> (last,Person.getName(first,last)));
-            contact.insert(pair<string,string> ("Telephone",Telephone.getTelePhone(telephone)));
-            contact.insert(pair<string,string> ("Address",Address.getAddress(street,city,district,postcode)));
-            contact.insert(pair<string,string> ("Email",emailAddress.getEmailAddress(e_mail)));
-        }else if(option == 2)
-        {
-            cout << "Enter the last name of the contact you want to update: ";
-            cin >> findContact;
-            
-            multimap<string,string>::iterator itr;
-
-            auto it = contact.equal_range(findContact);
-
-            if(it.first == it.second)
+            case 1:
             {
-                cout << "Contact name not found " << '\n';
-            }else
-            {
-                cout << "Enter name you would like to add: ";
-                cin >> updateContact;
-                for(auto itr = it.first;itr != it.second;itr++)
+                do
                 {
-                    itr->second = updateContact;
-                }
+                    cout << "First name: "; cin >> first;
+                    cout << "Last name: "; cin >> last;
+                    cout << "telephone: "; cin >> telephone;
+                    cout << "Street name: "; cin >> street;
+                    cout << "City: "; cin >> city;
+                    cout << "\nDistrict: "; cin >> district;
+                    cout << "Postcode: "; cin >> postcode;
+                    cout << "E-mail address: "; cin >> e_mail;
+                    count++;
+                    
+                    if(count == 1)
+                    {Contact1.contact = Combined_Contact; contact_arr[0] = Contact1.contact;}
+                    else if(count == 2)
+                    {Contact2.contact = Combined_Contact;contact_arr[1] = Contact2.contact;}
+                    else if(count == 3)
+                    {Contact3.contact = Combined_Contact;contact_arr[2] = Contact3.contact;}
+                    else if(count == 4)
+                    {Contact4.contact = Combined_Contact;contact_arr[3] = Contact4.contact;}
+                    else if(count == 5)
+                    {Contact5.contact = Combined_Contact;contact_arr[4] = Contact5.contact;}
+                    
+                    cout << "Continue(1), quit(0)";
+                    cin >> userInput;
+                } while (userInput != 0);
                 
-                //Prints updated list
-                for(const auto& [key,value] : contact)
-                {
-                        cout << key << ": " << value << '\n';
-                }
+                break;
             }
-        }else if(option == 3)
-        {
-            cout << "Enter the last name of contact you want to remove: ";
-                   
-            cin >> removeContact;
-
-            multimap<string,string>::iterator itr1;
-
-            auto it = contact.equal_range(removeContact);
-
-            if(it.first == it.second)
+            case 2:
             {
-                cout << "Contact name not found" << '\n';
-            }else
-            {
-                contact.erase(it.first,it.second);
-
-                for(const auto& [key,value] : contact)
+                cout << "Enter the contact number you want to update: ";
+                cin >> updateContact;
+                
+                if(updateContact <= 0 || updateContact > 5)
                 {
-                    cout << key << ": " << value << '\n';
+                    cout << "Contact not found!";
+                    cout << "Enter the contact number you want to update: ";
+                    cin >> updateContact;
                 }
+                int size_of_arr = sizeof(contact_arr)/sizeof(contact_arr[0]);
+
+                if(updateContact == 1)
+                {
+                    cout <<"Contact 1: "<< Contact1.contact << '\n';
+                    
+                    cout << "First name: "; cin >> first;
+                    cout << "Last name: "; cin >> last;
+                    cout << "telephone: "; cin >> telephone;
+                    cout << "Street name: "; cin >> street;
+                    cout << "City: "; cin >> city;
+                    cout << "\nDistrict: "; cin >> district;
+                    cout << "Postcode: "; cin >> postcode;
+                    cout << "E-mail address: "; cin >> e_mail;
+
+                    Contact1.contact = Combined_Contact; 
+                    contact_arr[0] = Contact1.contact;
+                }
+                break;
             }
-        }else if(option == 4)
-        {
-            for(const auto& [key,value] : contact)
+            case 3:
             {
-                    cout << key << ": " << value << '\n';
+                cout << "Enter the contact number to remove contact: ";
+                cin >> removeContact;
+
+                int size_of_arr = sizeof(contact_arr)/sizeof(contact_arr[0]);
+
+                for(int i = removeContact - 1;i < size_of_arr - 1;i++)
+                {
+                    contact_arr[i] = contact_arr[i + 1];
+                }
+                size_of_arr--;
+
+                for(int i = 0;i < size_of_arr;i++)
+                {
+                    cout << contact_arr[i] << '\n';
+                }
+                break;
+            }
+            case 4:
+            {
+                for(int i = 0;i < count;i++)
+                {
+                    cout << contact_arr[i] << '\n';
+                }
+                break;
             }
         }
     }while(option != 5);

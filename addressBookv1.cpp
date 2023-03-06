@@ -1,11 +1,10 @@
 /**
  * @file addressBookv1.cpp
- * @author your name (you@domain.com)
- * @brief 
+ * @author Hussein Khadra
+ * @brief A simple address book program holding five contacts
  * @version 0.1
  * @date 2023-03-03
- * 
- * @copyright Copyright (c) 2023
+ * @copyright MIT LISENcE 2023
  * 
  */
 #include <iostream>
@@ -13,6 +12,10 @@
 
 using namespace std;
 
+/**
+ * @brief A struct holding five contact variables
+ * 
+ */
 struct addressBookv1
 {
     string contact;
@@ -33,9 +36,12 @@ int main()
 {
     string first,last,telephone,street,city,district,postcode,e_mail;
     string Combined_Contact = "Name: "+ first + "," + last + ",Tele: " + telephone + ",Address: " + street + "," + city + "," + district + "," + postcode + ",email: " + e_mail;
-    int updateContact,findContact,removeContact;
-    int option,userInput,count = 0;
+    
+    int updateContact,findContact,removeContact,option,userInput,count = 0;
+    
+    //array to store all contacts
     string contact_arr[5];
+    
     do
     {
         displayMenu();
@@ -102,6 +108,75 @@ int main()
 
                     Contact1.contact = Combined_Contact; 
                     contact_arr[0] = Contact1.contact;
+                    cout << contact_arr[0] << '\n';
+                }else if(updateContact == 2)
+                {
+                    cout <<"Contact 2: "<< Contact2.contact << '\n';
+                    
+                    cout << "First name: "; cin >> first;
+                    cout << "Last name: "; cin >> last;
+                    cout << "telephone: "; cin >> telephone;
+                    cout << "Street name: "; cin >> street;
+                    cout << "City: "; cin >> city;
+                    cout << "\nDistrict: "; cin >> district;
+                    cout << "Postcode: "; cin >> postcode;
+                    cout << "E-mail address: "; cin >> e_mail;
+
+                    Contact2.contact = Combined_Contact; 
+                    contact_arr[1] = Contact2.contact;
+
+                    cout << contact_arr[1] << '\n';
+                }else if(updateContact == 3)
+                {
+                    cout <<"Contact 3: "<< Contact3.contact << '\n';
+                    
+                    cout << "First name: "; cin >> first;
+                    cout << "Last name: "; cin >> last;
+                    cout << "telephone: "; cin >> telephone;
+                    cout << "Street name: "; cin >> street;
+                    cout << "City: "; cin >> city;
+                    cout << "\nDistrict: "; cin >> district;
+                    cout << "Postcode: "; cin >> postcode;
+                    cout << "E-mail address: "; cin >> e_mail;
+
+                    Contact3.contact = Combined_Contact; 
+                    contact_arr[2] = Contact3.contact;
+
+                    cout << contact_arr[2] << '\n';
+                }else if(updateContact == 4)
+                {
+                    cout <<"Contact 4: "<< Contact4.contact << '\n';
+                    
+                    cout << "First name: "; cin >> first;
+                    cout << "Last name: "; cin >> last;
+                    cout << "telephone: "; cin >> telephone;
+                    cout << "Street name: "; cin >> street;
+                    cout << "City: "; cin >> city;
+                    cout << "\nDistrict: "; cin >> district;
+                    cout << "Postcode: "; cin >> postcode;
+                    cout << "E-mail address: "; cin >> e_mail;
+
+                    Contact4.contact = Combined_Contact; 
+                    contact_arr[3] = Contact4.contact;
+
+                    cout << contact_arr[3] << '\n';
+                }else if(updateContact == 5)
+                {
+                    cout <<"Contact 5: "<< Contact5.contact << '\n';
+                    
+                    cout << "First name: "; cin >> first;
+                    cout << "Last name: "; cin >> last;
+                    cout << "telephone: "; cin >> telephone;
+                    cout << "Street name: "; cin >> street;
+                    cout << "City: "; cin >> city;
+                    cout << "\nDistrict: "; cin >> district;
+                    cout << "Postcode: "; cin >> postcode;
+                    cout << "E-mail address: "; cin >> e_mail;
+
+                    Contact5.contact = Combined_Contact; 
+                    contact_arr[4] = Contact5.contact;
+
+                    cout << contact_arr[4] << '\n';
                 }
                 break;
             }
@@ -126,9 +201,19 @@ int main()
             }
             case 4:
             {
-                for(int i = 0;i < count;i++)
+                int chosenContact;
+                cout << "(1) to display all contacts or (2) chose a contact to display.\n";
+                cin >> chosenContact;
+
+                if(chosenContact == 1)
                 {
-                    cout << contact_arr[i] << '\n';
+                    for(int i = 0;i < count;i++)
+                    {
+                        cout << contact_arr[i] << '\n';
+                    }
+                }else if(chosenContact == 2)
+                {
+                    cout << contact_arr[chosenContact - 1] << '\n';
                 }
                 break;
             }

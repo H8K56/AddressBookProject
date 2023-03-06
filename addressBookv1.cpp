@@ -7,6 +7,7 @@
  * @copyright MIT LISENcE 2023
  * 
  */
+
 #include <iostream>
 #include <string>
 
@@ -35,10 +36,13 @@ void displayMenu()
 int main()
 {
     string first,last,telephone,street,city,district,postcode,e_mail;
-    string Combined_Contact = "Name: "+ first + "," + last + ",Tele: " + telephone + ",Address: " + street + "," + city + "," + district + "," + postcode + ",email: " + e_mail;
+    string Combined_Contact1,Combined_Contact2,Combined_Contact3,Combined_Contact4,Combined_Contact5;
     
     int updateContact,findContact,removeContact,option,userInput,count = 0;
-    
+    /**
+     * "Name: "+ first + "," + last + ",Tele: " + telephone + ",Address: " + street + "," + city + "," + district + "," + postcode + ",email: " + e_mail;
+     * 
+     */
     //array to store all contacts
     string contact_arr[5];
     
@@ -51,33 +55,26 @@ int main()
         {
             case 1:
             {
-                do
-                {
-                    cout << "First name: "; cin >> first;
-                    cout << "Last name: "; cin >> last;
-                    cout << "telephone: "; cin >> telephone;
-                    cout << "Street name: "; cin >> street;
-                    cout << "City: "; cin >> city;
-                    cout << "\nDistrict: "; cin >> district;
-                    cout << "Postcode: "; cin >> postcode;
-                    cout << "E-mail address: "; cin >> e_mail;
-                    count++;
-                    
-                    if(count == 1)
-                    {Contact1.contact = Combined_Contact; contact_arr[0] = Contact1.contact;}
-                    else if(count == 2)
-                    {Contact2.contact = Combined_Contact;contact_arr[1] = Contact2.contact;}
-                    else if(count == 3)
-                    {Contact3.contact = Combined_Contact;contact_arr[2] = Contact3.contact;}
-                    else if(count == 4)
-                    {Contact4.contact = Combined_Contact;contact_arr[3] = Contact4.contact;}
-                    else if(count == 5)
-                    {Contact5.contact = Combined_Contact;contact_arr[4] = Contact5.contact;}
-                    
-                    cout << "Continue(1), quit(0)";
-                    cin >> userInput;
-                } while (userInput != 0);
+                cout << "First name: "; cin >> first;
+                cout << "Last name: "; cin >> last;
+                cout << "telephone: "; cin >> telephone;
+                cout << "Street name: "; cin >> street;
+                cout << "City: \n"; cin >> city;
+                cout << "District: \n"; cin >> district;
+                cout << "Postcode: "; cin >> postcode;
+                cout << "E-mail address: "; cin >> e_mail;
+                count++;
                 
+                if(count == 1)
+                {Combined_Contact1 = "Name: "+ first + "," + last + ",Tele: " + telephone + ",Address: " + street + "," + city + "," + district + "," + postcode + ",email: " + e_mail;Contact1.contact = Combined_Contact1;contact_arr[0] = Contact1.contact;}
+                else if(count == 2)
+                {Combined_Contact2 = "Name: "+ first + "," + last + ",Tele: " + telephone + ",Address: " + street + "," + city + "," + district + "," + postcode + ",email: " + e_mail;Contact2.contact = Combined_Contact2;contact_arr[1] = Contact2.contact;}
+                else if(count == 3)
+                {Combined_Contact3 = "Name: "+ first + "," + last + ",Tele: " + telephone + ",Address: " + street + "," + city + "," + district + "," + postcode + ",email: " + e_mail;Contact3.contact = Combined_Contact3;contact_arr[2] = Contact3.contact;}
+                else if(count == 4)
+                {Combined_Contact4 = "Name: "+ first + "," + last + ",Tele: " + telephone + ",Address: " + street + "," + city + "," + district + "," + postcode + ",email: " + e_mail;Contact4.contact = Combined_Contact4;contact_arr[3] = Contact4.contact;}
+                else if(count == 5)
+                {Combined_Contact5 = "Name: "+ first + "," + last + ",Tele: " + telephone + ",Address: " + street + "," + city + "," + district + "," + postcode + ",email: " + e_mail;Contact5.contact = Combined_Contact5;contact_arr[4] = Contact5.contact;}
                 break;
             }
             case 2:
@@ -106,7 +103,7 @@ int main()
                     cout << "Postcode: "; cin >> postcode;
                     cout << "E-mail address: "; cin >> e_mail;
 
-                    Contact1.contact = Combined_Contact; 
+                    Contact1.contact = Combined_Contact1; 
                     contact_arr[0] = Contact1.contact;
                     cout << contact_arr[0] << '\n';
                 }else if(updateContact == 2)
@@ -122,7 +119,7 @@ int main()
                     cout << "Postcode: "; cin >> postcode;
                     cout << "E-mail address: "; cin >> e_mail;
 
-                    Contact2.contact = Combined_Contact; 
+                    Contact2.contact = Combined_Contact2; 
                     contact_arr[1] = Contact2.contact;
 
                     cout << contact_arr[1] << '\n';
@@ -139,7 +136,7 @@ int main()
                     cout << "Postcode: "; cin >> postcode;
                     cout << "E-mail address: "; cin >> e_mail;
 
-                    Contact3.contact = Combined_Contact; 
+                    Contact3.contact = Combined_Contact3; 
                     contact_arr[2] = Contact3.contact;
 
                     cout << contact_arr[2] << '\n';
@@ -156,7 +153,7 @@ int main()
                     cout << "Postcode: "; cin >> postcode;
                     cout << "E-mail address: "; cin >> e_mail;
 
-                    Contact4.contact = Combined_Contact; 
+                    Contact4.contact = Combined_Contact4; 
                     contact_arr[3] = Contact4.contact;
 
                     cout << contact_arr[3] << '\n';
@@ -173,7 +170,7 @@ int main()
                     cout << "Postcode: "; cin >> postcode;
                     cout << "E-mail address: "; cin >> e_mail;
 
-                    Contact5.contact = Combined_Contact; 
+                    Contact5.contact = Combined_Contact5; 
                     contact_arr[4] = Contact5.contact;
 
                     cout << contact_arr[4] << '\n';
@@ -213,7 +210,10 @@ int main()
                     }
                 }else if(chosenContact == 2)
                 {
-                    cout << contact_arr[chosenContact - 1] << '\n';
+                    cout << "Enter contact number: "<<'\n';
+                    int contactChoice;
+                    cin >> contactChoice;
+                    cout << contact_arr[contactChoice - 1] << '\n';
                 }
                 break;
             }

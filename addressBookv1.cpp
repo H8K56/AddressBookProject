@@ -4,8 +4,7 @@
  * @brief A simple address book program holding five contacts
  * @version 0.1
  * @date 2023-03-03
- * @copyright MIT LISENcE 2023
- * 
+ * @copyright MIT LISENCE 2023
  */
 
 #include <iostream>
@@ -20,7 +19,6 @@ using namespace std;
  */
 struct addressBookv1
 {
-    string contact;
     string first,last,telephone,street,city,district,postcode,e_mail;
 }Contact_Arr[100];
 
@@ -182,6 +180,7 @@ int main()
         file << "Postcode: "; file << Contact_Arr[j].postcode;
         file << "E-mail address: "; file << Contact_Arr[j].e_mail;
         file << '\n';
+        j++;
     }
 
     file.close();

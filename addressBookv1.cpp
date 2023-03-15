@@ -1,71 +1,31 @@
+/**
+ * @file addressBookv1.cpp
+ * @author Hussein Khadra
+ * @brief A simple address book program holding five contacts
+ * @version 0.1
+ * @date 2023-03-03
+ * @copyright MIT LISENCE 2023
+ */
+
 #include <iostream>
-#include <map>
-#include <iterator>
-#include <string>
 #include <fstream>
+#include <string>
 
 using namespace std;
-//Main class
-class AddressBook
-{
-    public:
-    class Person
-    {
-        private:
-            string firstName;
-            string lastName;
-        public:
-        string getName(string,string);
-    };
-    class Address
-    {
-        private:
-        string streetName,cityName,district,postCode;
-        
-        public:
-        string getAddress(string,string,string,string);
-    };
-    class emailAddress
-    {
-        private:
-        string email;
 
-        public:
-        string getEmailAddress(string);
-    };
-    class Telephone
-    {
-        private:
-        string phoneNumber;
+/**
+ * @brief A struct holding five contact variables
+ * 
+ */
+struct addressBookv1
+{
+    string first,last,telephone,street,city,district,postcode,e_mail;
+}Contact_Arr[100];
 
-        public:
-        string getTelePhone(string);
-    };
-};
-//Functions that set the format of the address book
-string AddressBook::Person::getName(string first = "",string last = "")
-{
-    string fullName = first + " " + last;
-    return fullName;
-}
-string AddressBook::Address::getAddress(string street = "",string city = "",string district = "",string postCode = "")
-{
-    string addressOfPerson = street + "," + city + "," + district + "," + postCode;
-    return addressOfPerson;
-}
-string AddressBook::emailAddress::getEmailAddress(string e_mail = "")
-{
-    return e_mail; 
-}
-string AddressBook::Telephone::getTelePhone(string phone = "")
-{
-    return phone;
-}
 
-//function to display menu
 void displayMenu()
 {
-    cout << "1) Add Contact.\n";
+    cout << "\n1) Add Contact.\n";
     cout << "2) Update existing contact.\n";
     cout << "3) remove contact\n";
     cout << "4) Display full contact list\n";
@@ -74,104 +34,157 @@ void displayMenu()
 
 
 int main()
-{
-    // //open file for writing
-    // ofstream open("contact_list.txt");
-    // open << "******Address Book******" << '\n';
-    string first,last,telephone,street,city,district,postcode,e_mail;
-    string updateContact,findContact;
-    string removeContact;
-    int option;
-    
-    //empty map container
-    multimap<string,string> contact;
+{   
+    int updateContact,findContact,removeContact,option,userInput,count = 0;
 
-    //person object
-    AddressBook::Person Person;
-    //Telephone object
-    AddressBook::Telephone Telephone;
-    //Address object
-    AddressBook::Address Address;
-    //E-mail object
-    AddressBook::emailAddress emailAddress;
-    
     do
     {
         displayMenu();
         cin >> option;
         
-        if(option == 1)
+        switch(option)
         {
-            cout << "First name: "; cin >> first;
-            cout << "Last name: "; cin >> last;
-            cout << "telephone: "; cin >> telephone;
-            cout << "Street name: "; cin >> street;
-            cout << "City: "; cin >> city;
-            cout << "District: "; cin >> district;
-            cout << "Postcode: "; cin >> postcode;
-            cout << "E-mail address: "; cin >> e_mail;
-            
-            //Map that stores format of inputs
-            contact.insert(pair<string,string> ("Name",Person.getName(first,last)));
-            contact.insert(pair<string,string> ("Telephone",Telephone.getTelePhone(telephone)));
-            contact.insert(pair<string,string> ("Address",Address.getAddress(street,city,district,postcode)));
-            contact.insert(pair<string,string> ("Email",emailAddress.getEmailAddress(e_mail)));
-        }else if(option == 2)
-        {
-            cout << "Enter the last name of the contact you want to update: ";
-            cin >> findContact;
-            
-            multimap<string,string>::iterator itr;
-
-            auto it = contact.equal_range(findContact);
-
-            if(it.first == it.second)
+            case 1:
+            {   
+                cout << "First name: "; cin >> Contact_Arr[count].first;
+                cout << "Last name: "; cin >> Contact_Arr[count].last;
+                cout << "telephone: "; cin >> Contact_Arr[count].telephone;
+                cout << "Street name: "; cin >> Contact_Arr[count].street;
+                cout << "City: "; cin >> Contact_Arr[count].city;
+                cout << "District: "; cin >> Contact_Arr[count].district;
+                cout << "Postcode: "; cin >> Contact_Arr[count].postcode;
+                cout << "E-mail address: "; cin >> Contact_Arr[count].e_mail;
+                count++;
+                break;
+            }
+            case 2:
             {
-                cout << "Contact name not found " << '\n';
-            }else
-            {
-                cout << "Enter you would like to add: ";
+                cout << "Enter the contact number you want to update: ";
                 cin >> updateContact;
-                for(auto itr = it.first;itr != it.second;itr++)
-                {
-                    itr->second = updateContact;
-                }
                 
-                //Prints updated list
-                for(const auto& [key,value] : contact)
+                if(updateContact <= 0 || updateContact > 5)
                 {
-                        cout << key << ": " << value << '\n';
+                    cout << "Contact not found!";
+                    cout << "Enter the contact number you want to update: ";
+                    cin >> updateContact;
                 }
-            }
-        }else if(option == 3)
-        {
-            cout << "Enter the last name of contact you want to remove: ";
-                   
-            cin >> removeContact;
 
-            multimap<string,string>::iterator itr1;
-
-            auto it = contact.equal_range(removeContact);
-
-            if(it.first == it.second)
-            {
-                cout << "Contact name not found" << '\n';
-            }else
-            {
-                contact.erase(it.first,it.second);
-
-                for(const auto& [key,value] : contact)
+                for(int i = 0;i < count;i++)
                 {
-                    cout << key << ": " << value << '\n';
+                    if(i == updateContact)
+                        cout << "First name: "; cin >> Contact_Arr[i].first;
+                        cout << "Last name: "; cin >> Contact_Arr[i].last;
+                        cout << "telephone: "; cin >> Contact_Arr[i].telephone;
+                        cout << "Street name: "; cin >> Contact_Arr[i].street;
+                        cout << "City: "; cin >> Contact_Arr[i].city;
+                        cout << "District: "; cin >> Contact_Arr[i].district;
+                        cout << "Postcode: "; cin >> Contact_Arr[i].postcode;
+                        cout << "E-mail address: "; cin >> Contact_Arr[i].e_mail;
                 }
+                break;
             }
-        }else if(option == 4)
-        {
-            for(const auto& [key,value] : contact)
+            case 3:
             {
-                    cout << key << ": " << value << '\n';
+                cout << "Enter the contact number to remove contact: ";
+                cin >> removeContact;
+
+                for(int i = removeContact - 1;i < count;i++)
+                {
+                    Contact_Arr[i] = Contact_Arr[i + 1];
+                }
+
+                for(int i = 0;i < count;i++)
+                {
+                    cout << "First name: "; cout << Contact_Arr[i].first;
+                    cout << "Last name: "; cout << Contact_Arr[i].last;
+                    cout << "telephone: "; cout << Contact_Arr[i].telephone;
+                    cout << "Street name: "; cout << Contact_Arr[i].street;
+                    cout << "City: "; cout << Contact_Arr[i].city;
+                    cout << "District: ";cout << Contact_Arr[i].district;
+                    cout << "Postcode: "; cout << Contact_Arr[i].postcode;
+                    cout << "E-mail address: "; cout << Contact_Arr[i].e_mail;
+                    cout << '\n';
+                }
+                break;
+            }
+            case 4:
+            {
+                int chosenContact;
+                cout << "(1) to display all contacts or (2) chose a contact to display.\n";
+                cin >> chosenContact;
+
+                if(chosenContact == 1)
+                {
+                    for(int i = 0;i < count;i++)
+                    {
+                        cout << "First name: "; cout << Contact_Arr[i].first;
+                        cout << "Last name: "; cout << Contact_Arr[i].last;
+                        cout << "telephone: "; cout << Contact_Arr[i].telephone;
+                        cout << "Street name: "; cout << Contact_Arr[i].street;
+                        cout << "City: "; cout << Contact_Arr[i].city;
+                        cout << "District: ";cout << Contact_Arr[i].district;
+                        cout << "Postcode: "; cout << Contact_Arr[i].postcode;
+                        cout << "E-mail address: "; cout << Contact_Arr[i].e_mail;
+                        cout << '\n';
+                    }
+                }else if(chosenContact == 2)
+                {
+                    cout << "Enter contact number: "<<'\n';
+                    int contactChoice;
+                    cin >> contactChoice;
+                    
+                    for(int i = 0;i < count && i != contactChoice;i++)
+                    {
+                        if(i == contactChoice)
+                            cout << "First name: "; cout << Contact_Arr[i].first;
+                            cout << "Last name: "; cout << Contact_Arr[i].last;
+                            cout << "telephone: "; cout << Contact_Arr[i].telephone;
+                            cout << "Street name: "; cout << Contact_Arr[i].street;
+                            cout << "City: "; cout << Contact_Arr[i].city;
+                            cout << "District: ";cout << Contact_Arr[i].district;
+                            cout << "Postcode: "; cout << Contact_Arr[i].postcode;
+                            cout << "E-mail address: "; cout << Contact_Arr[i].e_mail;
+                            cout << '\n';
+                    }
+                }
+                break;
             }
         }
     }while(option != 5);
+
+    ofstream file;
+    file.open("Contact.txt");
+
+    if(!file.is_open())
+    {
+        cout << "File failed to open";
+    }
+
+    int j = 0;
+    file << "********Contact List********" << '\n';
+    while(j < count)
+    {
+        file << "First name: "; file << Contact_Arr[j].first;
+        file << '\n';
+        file << "Last name: "; file << Contact_Arr[j].last;
+        file << '\n';
+        file << "telephone: "; file << Contact_Arr[j].telephone;
+        file << '\n';
+        file << "Street name: "; file << Contact_Arr[j].street;
+        file << '\n';
+        file << "City: "; file << Contact_Arr[j].city;
+        file << '\n';
+        file << "District: ";file << Contact_Arr[j].district;
+        file << '\n';
+        file << "Postcode: "; file << Contact_Arr[j].postcode;
+        file << '\n';
+        file << "E-mail address: "; file << Contact_Arr[j].e_mail;
+        file << '\n';
+        j++;
+    }
+
+    file.close();
+
+    cout << "You are blessed";
     return 0;
 }

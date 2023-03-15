@@ -36,7 +36,6 @@ void displayMenu()
 int main()
 {   
     int updateContact,findContact,removeContact,option,userInput,count = 0;
-    int continueInput;
 
     do
     {
@@ -46,24 +45,17 @@ int main()
         switch(option)
         {
             case 1:
-            {
-                do
-                {
-                    cout << "First name: "; cin >> Contact_Arr[count].first;
-                    cout << "Last name: "; cin >> Contact_Arr[count].last;
-                    cout << "telephone: "; cin >> Contact_Arr[count].telephone;
-                    cout << "Street name: "; cin >> Contact_Arr[count].street;
-                    cout << "City: "; cin >> Contact_Arr[count].city;
-                    cout << "District: "; cin >> Contact_Arr[count].district;
-                    cout << "Postcode: "; cin >> Contact_Arr[count].postcode;
-                    cout << "E-mail address: "; cin >> Contact_Arr[count].e_mail;
-
-                    cout << "Continue?(-1 to quit)(1 to continue)" << '\n';
-                    cin >> continueInput;
-                    if(continueInput == 1)
-                        count++;
-                } while (continueInput != -1);
-                
+            {   
+                cout << "First name: "; cin >> Contact_Arr[count].first;
+                cout << "Last name: "; cin >> Contact_Arr[count].last;
+                cout << "telephone: "; cin >> Contact_Arr[count].telephone;
+                cout << "Street name: "; cin >> Contact_Arr[count].street;
+                cout << "City: "; cin >> Contact_Arr[count].city;
+                cout << "District: "; cin >> Contact_Arr[count].district;
+                cout << "Postcode: "; cin >> Contact_Arr[count].postcode;
+                cout << "E-mail address: "; cin >> Contact_Arr[count].e_mail;
+                count++;
+                break;
             }
             case 2:
             {
@@ -89,6 +81,7 @@ int main()
                         cout << "Postcode: "; cin >> Contact_Arr[i].postcode;
                         cout << "E-mail address: "; cin >> Contact_Arr[i].e_mail;
                 }
+                break;
             }
             case 3:
             {
@@ -172,12 +165,19 @@ int main()
     while(j < count)
     {
         file << "First name: "; file << Contact_Arr[j].first;
+        file << '\n';
         file << "Last name: "; file << Contact_Arr[j].last;
+        file << '\n';
         file << "telephone: "; file << Contact_Arr[j].telephone;
+        file << '\n';
         file << "Street name: "; file << Contact_Arr[j].street;
+        file << '\n';
         file << "City: "; file << Contact_Arr[j].city;
+        file << '\n';
         file << "District: ";file << Contact_Arr[j].district;
+        file << '\n';
         file << "Postcode: "; file << Contact_Arr[j].postcode;
+        file << '\n';
         file << "E-mail address: "; file << Contact_Arr[j].e_mail;
         file << '\n';
         j++;

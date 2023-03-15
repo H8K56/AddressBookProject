@@ -4,7 +4,7 @@
  * @brief A simple address book program holding five contacts
  * @version 0.1
  * @date 2023-03-03
- * @copyright MIT LISENCE 2023
+ * @copyright MIT LICENSE 2023
  */
 
 #include <iostream>
